@@ -14,4 +14,5 @@ const propertySchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
 
 })
+propertySchema.index({ propertyType: 1 }); 
 module.exports = mongoose.model('property', propertySchema)
