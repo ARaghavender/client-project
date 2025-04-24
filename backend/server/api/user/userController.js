@@ -1,7 +1,7 @@
 const User = require('./userModel')
 const jwt = require('jsonwebtoken')
 const secretKey = '1q2w3e4r5t' 
-const bcrypt = require('bcrypt')
+const bcryptjs = require('bcryptjs')
 
 
 const login = (req, res) => {
@@ -18,7 +18,7 @@ const login = (req, res) => {
                 if (result == null)
                     res.send({ success: false, status: 500, message: 'No user Found' })
                 else {
-                    if (bcrypt.compareSync(req.body.password, result.password)) {
+                    if (bcryptjs.compareSync(req.body.password, result.password)) {
                         if (result.status) {
                             let payload = {
                                 _id: result._id,
@@ -81,10 +81,10 @@ const changePassword = (req, res) => {
 
                 }
                 else {
-                    if (bcrypt.compareSync(req.body.currentPassword, userData.password)) {
+                    if (bcryptjs.compareSync(req.body.currentPassword, userData.password)) {
 
                         if (req.body.newPassword == req.body.confirmPassword) {
-                            userData.password = bcrypt.hashSync(req.body.newPassword, 10)
+                            userData.password = bcryptjs.hashSync(req.body.newPassword, 10)
                             userData.save().then((userData) => {
                                 res.send({
                                     success: true,

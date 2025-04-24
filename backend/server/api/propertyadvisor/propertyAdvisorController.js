@@ -1,5 +1,5 @@
 const Propertyadvisor = require('./propertyAdvisorModel')
-const bcrypt = require('bcrypt')
+const bcryptjs = require('bcryptjs')
 const User = require('../user/userModel')
 
 
@@ -59,7 +59,7 @@ const register = async (req, res) => {
                     newUser.propertyAdvisorId = result._id
                     newUser.userType = 2
                     newUser.status = false
-                    newUser.password = bcrypt.hashSync(req.body.password, 10);
+                    newUser.password = bcryptjs.hashSync(req.body.password, 10);
                     await newUser.save().then((savedUser) => {
                         newPropertyAdvisor.userId = savedUser._id
                         newPropertyAdvisor.save().then(() => {

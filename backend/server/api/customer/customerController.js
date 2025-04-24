@@ -1,6 +1,6 @@
 const Customer = require('./customerModel')
 const User = require('../user/userModel')
-const bcrypt = require('bcrypt')
+const bcryptjs = require('bcryptjs')
 
 
 
@@ -46,7 +46,7 @@ const register = async (req, res) => {
                     newUser.name = req.body.name
                     newUser.email = req.body.email
                     newUser.customerId = savedCustomer._id
-                    newUser.password = bcrypt.hashSync(req.body.password, 10);
+                    newUser.password = bcryptjs.hashSync(req.body.password, 10);
                     await newUser.save().then((savedUser) => {
                         newCustomer.userId = savedUser._id
                         newCustomer.save().then(() => {

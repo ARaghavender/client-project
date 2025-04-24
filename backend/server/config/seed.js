@@ -1,5 +1,5 @@
 const User = require('../api/user/userModel')
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 
 
 User.findOne({ email: 'admin@gmail.com' })
@@ -9,7 +9,7 @@ User.findOne({ email: 'admin@gmail.com' })
                 autoId: 1,
                 name: 'admin',
                 email: 'admin@gmail.com',
-                password: bcrypt.hashSync('123', 10),
+                password: bcryptjs.hashSync('123', 10),
                 userType: 1
             })
             admin.save().then(saveResult => {
